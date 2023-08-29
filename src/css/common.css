@@ -16,3 +16,22 @@ img {
   display: block;
   max-width: 100%;
 }
+
+.btnSection {
+  min-height: 500px;
+  width: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+}
+.btnSection__button {
+  font-size: 20px;
+  width: 200px;
+  height: 100px;
+  border-radius: 20%;
+}
+
+p a{
+  background-color: #fafafa;
+}
