@@ -49,7 +49,7 @@ const secondsElement = document.querySelector('[data-seconds]');
 
 let countdownInterval;
 
-startButton.addEventListener('click', () => {
+startBtn.addEventListener('click', () => {
   const selectedDate = new Date(startDateInput.value);
   const currentDate = new Date();
 
@@ -74,7 +74,7 @@ startButton.addEventListener('click', () => {
 
     if (countdownTime < 0) {
       clearInterval(countdownInterval);
-      startButton.disabled = false;
+      startBtn.disabled = false;
       notiflix.Notify.success('Countdown completed!');
     }
   }, 1000);
