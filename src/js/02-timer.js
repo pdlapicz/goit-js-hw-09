@@ -16,6 +16,7 @@ const options = {
     }
 
     const startBtn = document.querySelector('[data-start]');
+    startButton.disabled = false;
   },
 };
 
@@ -39,7 +40,7 @@ function convertMs(ms) {
   return { days, hours, minutes, seconds };
 }
 
-const startDateInput = document.querySelector("#datetime-picker");
+const startDateInput = document.querySelector('#datetime-picker');
 const startBtn = document.querySelector('[data-start]');
 const daysElement = document.querySelector('[data-days]');
 const hoursElement = document.querySelector('[data-hours]');
@@ -48,28 +49,26 @@ const secondsElement = document.querySelector('[data-seconds]');
 
 let countdownInterval;
 
-startBtn.addEventListener("click", () => {
-    const selectedDate = new Date(startDateInput.value);
-    const currentDate = new Date();
-    
-    let countdownTime = selectedDate.getTime() - currentDate.getDate();
+startBtn.addEventListener('click', () => {
+  const selectedDate = new Date(startDateInput.value);
+  const currentDate = new Date();
 
+  let countdownTime = selectedDate.getTime() - currentDate.getDate();
+  startButton.disabled = true;
+  countdownInterval = setInterval(() => {
+    const timeRemaining = convertMs(countdownTime);
 
+    daysElement.textContent = addLeadingZero(timeRemaining.days);
+    hoursElement.textContent = addLeadingZero(timeRemaining.hours);
+    minutesElement.textContent = addLeadingZero(timeRemaining.minutes);
+    secondsElement.textContent = addLeadingZero(timeRemaining.seconds);
 
-    countdownInterval = setInterval(() => {
-        const timeRemaining = convertMs(countdownTime);
+    countdownTime -= 1000;
 
-        daysElement.textContent = addLeadingZero(timeRemaining.days);
-        hoursElement.textContent = addLeadingZero(timeRemaining.hours);
-        minutesElement.textContent = addLeadingZero(timeRemaining.minutes);
-        secondsElement.textContent = addLeadingZero(timeRemaining.seconds);
-
-        countdownTime -= 1000;
-
-        if (countdownTime < 0) {
-            clearInterval(countdownInterval);
-            startBtn.disabled = false;
-            notiflix.Notify.success("Countdown completed");
-        }
-    }, 1000)
+    if (countdownTime < 0) {
+      clearInterval(countdownInterval);
+      startBtn.disabled = false;
+      notiflix.Notify.success('Countdown completed');
+    }
+  }, 1000);
 });
