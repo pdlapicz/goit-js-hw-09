@@ -16,7 +16,6 @@ const options = {
     }
 
     const startBtn = document.querySelector('[data-start]');
-    startBtn.disabled = true;
   },
 };
 
@@ -52,15 +51,10 @@ let countdownInterval;
 startBtn.addEventListener("click", () => {
     const selectedDate = new Date(startDateInput.value);
     const currentDate = new Date();
-
-    if (selectedDate < currentDate) {
-        notiflix.Notify.info('Please choose date in the future');
-        return;
-    }
     
     let countdownTime = selectedDate.getTime() - currentDate.getDate();
 
-    startBtn.disabled = true;
+
 
     countdownInterval = setInterval(() => {
         const timeRemaining = convertMs(countdownTime);
