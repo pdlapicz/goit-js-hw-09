@@ -9,14 +9,6 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
     const selectedDate = selectedDates[0];
-
-    if (selectedDate < new Date()) {
-      notiflix.Notify.info('Please choose date in the future');
-      return;
-    }
-
-    const startBtn = document.querySelector('[data-start]');
-    startButton.disabled = false;
   },
 };
 
@@ -52,7 +44,10 @@ let countdownInterval;
 startBtn.addEventListener('click', () => {
   const selectedDate = new Date(startDateInput.value);
   const currentDate = new Date();
-
+  if (selectedDate < currentDate) {
+    notiflix.Notify.info('Please choose a date in the future');
+    return;
+  }
   let countdownTime = selectedDate.getTime() - currentDate.getDate();
   startButton.disabled = true;
   countdownInterval = setInterval(() => {

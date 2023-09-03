@@ -30,7 +30,8 @@ form.addEventListener('submit', e => {
   const amount = parseInt(amountInput.value);
 
   for (let i = 1; i <= amount; i++) {
-    const delay = initialDelay + step * (i-1);
+    const delay = initialDelay + step * (i - 1);
+    //-1 poniewaz zostawiajac samo i, przy 1 obrocie zsumuje first delay i delay step
 
     createPromise(i, delay)
       .then(({ position, delay }) => {
