@@ -4,11 +4,19 @@ import notiflix from 'notiflix';
 
 const options = {
   enableTime: true,
-  time_24: true,
+  time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   onClose(selectedDates) {
     const selectedDate = selectedDates[0];
+
+    if (selectedDate < new Date()) {
+      notiflix.Notify.info('Please choose a date in the future');
+      return;
+    }
+
+    const startBtn = document.querySelector('[data-start]');
+    startBtn.disabled = false;
   },
 };
 
@@ -41,15 +49,19 @@ const secondsElement = document.querySelector('[data-seconds]');
 
 let countdownInterval;
 
-startBtn.addEventListener('click', () => {
+startButton.addEventListener('click', () => {
   const selectedDate = new Date(startDateInput.value);
   const currentDate = new Date();
+
   if (selectedDate < currentDate) {
     notiflix.Notify.info('Please choose a date in the future');
     return;
   }
-  let countdownTime = selectedDate.getTime() - currentDate.getDate();
-  startButton.disabled = true;
+
+  let countdownTime = selectedDate.getTime() - currentDate.getTime();
+
+  startBtn.disabled = true;
+
   countdownInterval = setInterval(() => {
     const timeRemaining = convertMs(countdownTime);
 
@@ -62,8 +74,8 @@ startBtn.addEventListener('click', () => {
 
     if (countdownTime < 0) {
       clearInterval(countdownInterval);
-      startBtn.disabled = false;
-      notiflix.Notify.success('Countdown completed');
+      startButton.disabled = false;
+      notiflix.Notify.success('Countdown completed!');
     }
   }, 1000);
 });
