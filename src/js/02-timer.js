@@ -53,11 +53,6 @@ startBtn.addEventListener('click', () => {
   const selectedDate = new Date(startDateInput.value);
   const currentDate = new Date();
 
-  if (selectedDate < currentDate) {
-    notiflix.Notify.info('Please choose a date in the future');
-    return;
-  }
-
   let countdownTime = selectedDate.getTime() - currentDate.getTime();
 
   startBtn.disabled = true;
